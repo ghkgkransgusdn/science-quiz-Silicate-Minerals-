@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>통합과학 문제풀이 · 규산염 광물</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Dodum&family=Jua&display=swap">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<style>
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+    background: #f3f4f6;
+    color: #18181b;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'ss01', 'ss02';
+  }
+  .app-bg { 
+    background: #f3f4f6;
+    min-height: 100vh; 
+  }
+  .font-jua { font-family: 'Jua', 'Pretendard Variable', sans-serif; letter-spacing: -0.02em; }
+  .font-black-han { font-family: 'Black Han Sans', 'Pretendard Variable', sans-serif; letter-spacing: -0.01em; }
+  .font-num { font-family: 'Pretendard Variable', sans-serif; font-weight: 800; font-variant-numeric: tabular-nums lining-nums; letter-spacing: -0.04em; }
+  
+  .fade-in { animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+  .slide-up { animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* Cards with chunky shadow (Duolingo/Brilliant style) */
+  .chunky-card {
+    background: #ffffff;
+    border-radius: 20px;
+    border: 2px solid #e5e7eb;
+    box-shadow: 0 4px 0 #e5e7eb;
+    transition: all 0.15s;
+  }
+  .chunky-card.pressable:active:not(:disabled) {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #e5e7eb;
+  }
+  
+  .soft-card {
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1.5px solid #e5e7eb;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  }
+  
+  /* Hero gradient card */
+  .hero-card {
+    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%);
+    border-radius: 24px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-card::before {
+    content: '';
+    position: absolute;
+    top: -50%; right: -20%;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(251,191,36,0.25) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-card::after {
+    content: '';
+    position: absolute;
+    bottom: -40%; left: -10%;
+    width: 250px; height: 250px;
+    background: radial-gradient(circle, rgba(167,139,250,0.2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  
+  /* Buttons */
+  .btn-primary {
+    background: #18181b;
+    color: #fff;
+    font-weight: 700;
+    border-radius: 14px;
+    padding: 14px 28px;
+    transition: all 0.15s;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 4px 0 #3f3f46;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+  }
+  .btn-primary:hover:not(:disabled) { background: #27272a; }
+  .btn-primary:active:not(:disabled) { 
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #3f3f46;
+  }
+  .btn-primary:disabled { 
+    background: #d4d4d8; color: #fff; cursor: not-allowed;
+    box-shadow: 0 4px 0 #a1a1aa;
+  }
+  .btn-secondary {
+    background: #fff; color: #18181b; font-weight: 700;
+    border-radius: 14px; padding: 14px 24px;
+    border: 2px solid #e5e7eb;
+    box-shadow: 0 4px 0 #e5e7eb;
+    transition: all 0.15s; cursor: pointer;
+    font-size: 15px;
+  }
+  .btn-secondary:hover { background: #fafafa; }
+  .btn-secondary:active { 
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #e5e7eb;
+  }
+  
+  /* Choice buttons */
+  .choice-btn {
+    width: 100%; text-align: left; padding: 18px 20px; border-radius: 16px;
+    background: #fff; 
+    border: 2px solid #e5e7eb;
+    box-shadow: 0 3px 0 #e5e7eb;
+    transition: all 0.15s;
+    display: flex; align-items: center; gap: 16px; cursor: pointer;
+  }
+  .choice-btn:hover:not(:disabled) { background: #fafafa; }
+  .choice-btn:active:not(:disabled) { 
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 #e5e7eb;
+  }
+  .choice-btn.selected { 
+    border-color: #4338ca; 
+    background: #eef2ff;
+    box-shadow: 0 3px 0 #4338ca;
+  }
+  .choice-btn.correct { 
+    border-color: #10b981; 
+    background: #ecfdf5; 
+    color: #064e3b;
+    box-shadow: 0 3px 0 #10b981;
+  }
+  .choice-btn.wrong { 
+    border-color: #ef4444; 
+    background: #fef2f2; 
+    color: #7f1d1d;
+    box-shadow: 0 3px 0 #ef4444;
+  }
+  .choice-btn:disabled { cursor: default; }
+  .choice-num {
+    flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%;
+    border: 2px solid currentColor; display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 15px;
+  }
+  
+  /* Problem image */
+  .problem-img { width: 100%; max-width: 100%; height: auto; display: block; border-radius: 8px; }
+  
+  /* Misc */
+  button { -webkit-tap-highlight-color: transparent; }
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-thumb { background: #d4d4d8; border-radius: 3px; }
+  
+  /* Progress ring */
+  .progress-ring { transform: rotate(-90deg); }
+  
+  /* Difficulty pill */
+  .diff-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 5px 12px; border-radius: 999px;
+    font-size: 12px; font-weight: 700;
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="application/json" id="problems-data">[{"id": "p01", "difficulty": "easy", "topic": "규산염 사면체 기본 구조", "source": "2020년 9월 학평 7번", "answer": 4, "choices": ["ㄱ", "ㄷ", "ㄱ, ㄴ", "ㄴ, ㄷ", "ㄱ, ㄴ, ㄷ"], "explanation": "규산염 사면체는 중심에 <b>규소(Si) 1개<\/b>(검은 공)와 꼭짓점에 <b>산소(O) 4개<\/b>(흰 공)가 결합한 구조다. 따라서 A=규소, B=산소. <b>ㄱ<\/b>: A는 사면체 중심의 검은 공이므로 <b>규소<\/b>임 → 틀림. <b>ㄴ<\/b>: 휘석·각섬석 등 모든 규산염 광물은 SiO₄ 사면체를 기본 단위로 함 → 맞음. <b>ㄷ<\/b>: 규산염 사면체들이 꼭짓점의 산소(B)를 공유하면서 사슬·판·망상 등 다양한 형태로 연결되어 여러 규산염 광물을 만듦 → 맞음.", "image": "images/p01.png"}, {"id": "p02", "difficulty": "easy", "topic": "휘석·흑운모 결합 구조", "source": "2020년 11월 학평 14번", "answer": 4, "choices": ["ㄱ", "ㄴ", "ㄱ, ㄷ", "ㄴ, ㄷ", "ㄱ, ㄴ, ㄷ"], "explanation": "그림에서 작은 검은 점(●=A)이 사면체 중심에, 큰 흰 공(○=B)이 그것을 둘러싸고 있음 → A=<b>규소<\/b>, B=<b>산소<\/b>. <b>ㄱ<\/b>: A는 산소가 아니라 <b>규소<\/b> → 틀림. <b>ㄴ<\/b>: 휘석(단사슬)과 흑운모(판상) 모두 SiO₄ 사면체로 이루어진 <b>규산염 광물<\/b> → 맞음. <b>ㄷ<\/b>: 흑운모는 사면체가 평면으로 연결된 <b>판상 구조<\/b>라서 결합력이 약한 면을 따라 얇은 판 모양으로 잘 쪼개짐(박리성) → 맞음.", "image": "images/p02.png"}, {"id": "p03", "difficulty": "medium", "topic": "규산염 광물 종합 개념", "source": "2025년 9월 학평 13번", "answer": 5, "choices": ["A", "C", "A, B", "B, C", "A, B, C"], "explanation": "<b>학생 A<\/b>: 규소(비금속)와 산소(비금속)는 전자쌍을 공유하는 <b>공유 결합<\/b>으로 연결됨 → 맞음. <b>학생 B<\/b>: 휘석을 비롯한 모든 규산염 광물은 Si 원자 1개에 O 원자 4개가 결합한 <b>SiO₄ 사면체<\/b>가 기본 단위 → 맞음. <b>학생 C<\/b>: 규산염 광물(석영 등)에서 정제한 <b>규소(Si)<\/b>는 반도체 소자(실리콘 칩)의 핵심 재료 → 맞음. 셋 다 옳으므로 ⑤.", "image": "images/p03.png"}, {"id": "p04", "difficulty": "medium", "topic": "각섬석 결합 구조", "source": "2024년 10월 학평 18번", "answer": 5, "choices": ["ㄱ", "ㄷ", "ㄱ, ㄴ", "ㄴ, ㄷ", "ㄱ, ㄴ, ㄷ"], "explanation": "(가)에서 사면체 중심의 검은 공이 A, 꼭짓점의 흰 공이 B → A=<b>규소<\/b>, B=<b>산소<\/b>. <b>ㄱ<\/b>: A는 사면체의 중심 원자이므로 <b>규소<\/b>가 맞음 → 맞음. <b>ㄴ<\/b>: 각섬석은 SiO₄ 사면체가 두 줄로 연결된 <b>복사슬 구조<\/b>의 규산염 광물 → 맞음. <b>ㄷ<\/b>: 각섬석에서 각 규산염 사면체는 인접한 사면체와 꼭짓점의 <b>산소<\/b>를 공유하여 결합함 → 맞음.", "image": "images/p04.png"}, {"id": "p05", "difficulty": "medium", "topic": "휘석의 단사슬 구조", "source": "2025년 6월 학평 16번", "answer": 5, "choices": ["ㄱ", "ㄴ", "ㄱ, ㄷ", "ㄴ, ㄷ", "ㄱ, ㄴ, ㄷ"], "explanation": "(가)에서 사면체 중심의 검은 공이 규소, 꼭짓점의 흰 공들(A, B)이 모두 산소 → A=B=<b>산소<\/b>. <b>ㄱ<\/b>: A는 사면체 꼭짓점의 흰 공이므로 <b>산소<\/b> → 맞음. <b>ㄴ<\/b>: (나)는 SiO₄ 사면체가 한 줄로 연결된 <b>단사슬 구조<\/b>이며 휘석이 이에 해당 → 맞음. <b>ㄷ<\/b>: 단사슬에서 각 사면체는 이웃한 사면체와 꼭짓점의 <b>산소(B)<\/b>를 1개씩 공유하여 사슬을 이룸 → 맞음.", "image": "images/p05.png"}, {"id": "p06", "difficulty": "hard", "topic": "단사슬·복사슬 공유 산소 수 비교", "source": "2021년 6월 학평 8번", "answer": 2, "choices": ["ㄱ", "ㄷ", "ㄱ, ㄴ", "ㄴ, ㄷ", "ㄱ, ㄴ, ㄷ"], "explanation": "㉠은 <b>단사슬 구조<\/b>(휘석류), ㉡은 <b>복사슬 구조<\/b>(각섬석류). <b>ㄱ<\/b>: 흑운모는 사면체가 평면으로 무한히 연결된 <b>판상 구조<\/b>로, ㉠(단사슬)과 다름 → 틀림. <b>ㄴ<\/b>: 사면체 1개당 평균 공유 산소 수는 단사슬 ㉠=<b>2개<\/b>, 복사슬 ㉡=<b>평균 2.5개<\/b>(가운데 사면체는 3개, 가장자리 사면체는 2개를 공유). 즉 ㉠ &lt; ㉡이므로 “㉠이 ㉡보다 많다”는 <b>틀림<\/b>. <b>ㄷ<\/b>: 단사슬·복사슬·판상·망상 등 SiO₄ 사면체의 다양한 결합 형태로 휘석·각섬석·흑운모·석영 등 여러 규산염 광물이 만들어짐 → 맞음.", "image": "images/p06.png"}]</script>
+
+<script type="text/babel" data-type="module">
+const { useState, useEffect, useRef, useLayoutEffect } = React;
+
+// Load problems from embedded JSON
+const PROBLEMS = JSON.parse(document.getElementById('problems-data').textContent);
+
+// Robust storage: tries window.storage (Claude artifact), then localStorage, then in-memory
+const memStore = {};
+const storage = {
+  async get(key, fallback = null) {
+    try {
+      if (typeof window.storage?.get === 'function') {
+        const r = await window.storage.get(key);
+        return r ? JSON.parse(r.value) : fallback;
+      }
+    } catch(_) {}
+    try {
+      const v = localStorage.getItem(key);
+      return v != null ? JSON.parse(v) : fallback;
+    } catch(_) {}
+    return memStore[key] != null ? memStore[key] : fallback;
+  },
+  async set(key, value) {
+    const s = JSON.stringify(value);
+    try {
+      if (typeof window.storage?.set === 'function') {
+        await window.storage.set(key, s);
+        return true;
+      }
+    } catch(_) {}
+    try { localStorage.setItem(key, s); return true; } catch(_) {}
+    memStore[key] = value;
+    return true;
+  }
+};
+
+const STORAGE_KEYS = {
+  STATS: 'quiz:stats',
+  WRONG: 'quiz:wrong',
+  STARRED: 'quiz:starred',
+  HISTORY: 'quiz:history'
+};
+
+// =========================================================
+// ICONS (inline SVG - no external dependency)
+// =========================================================
+const Icon = ({ d, size=18, stroke=2, fill='none' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill={fill} stroke="currentColor" 
+    strokeWidth={stroke} strokeLinecap="round" strokeLinejoin="round">{d}</svg>
+);
+const Icons = {
+  ArrowLeft: (p) => <Icon {...p} d={<><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></>} />,
+  Check: (p) => <Icon {...p} d={<path d="M20 6 9 17l-5-5"/>} />,
+  X: (p) => <Icon {...p} d={<><path d="M18 6 6 18"/><path d="m6 6 12 12"/></>} />,
+  Pencil: (p) => <Icon {...p} d={<><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></>} />,
+  Eraser: (p) => <Icon {...p} d={<><path d="m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21"/><path d="M22 21H7"/><path d="m5 11 9 9"/></>} />,
+  Trash: (p) => <Icon {...p} d={<><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></>} />,
+  Undo: (p) => <Icon {...p} d={<><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5v0a5.5 5.5 0 0 1-5.5 5.5H11"/></>} />,
+  Star: (p) => <Icon {...p} d={<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>} />,
+  TrendUp: (p) => <Icon {...p} d={<><path d="M22 7 13.5 15.5l-5-5L2 17"/><path d="M16 7h6v6"/></>} />,
+  ChevronR: (p) => <Icon {...p} d={<path d="m9 18 6-6-6-6"/>} />,
+  Rotate: (p) => <Icon {...p} d={<><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></>} />,
+  Target: (p) => <Icon {...p} d={<><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></>} />,
+  Flame: (p) => <Icon {...p} d={<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>} />
+};
+
+// =========================================================
+// DRAWING CANVAS
+// =========================================================
+function DrawingCanvas({ active, tool, color }) {
+  const canvasRef = useRef(null);
+  const containerRef = useRef(null);
+  const [strokes, setStrokes] = useState([]);
+  const currentStroke = useRef(null);
+  const [size, setSize] = useState({ w: 0, h: 0 });
+
+  useLayoutEffect(() => {
+    const measure = () => {
+      if (containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect();
+        if (rect.width > 0 && rect.height > 0) setSize({ w: rect.width, h: rect.height });
+      }
+    };
+    measure();
+    const obs = new ResizeObserver(measure);
+    if (containerRef.current) obs.observe(containerRef.current);
+    return () => obs.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas || size.w === 0) return;
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = size.w * dpr;
+    canvas.height = size.h * dpr;
+    canvas.style.width = size.w + 'px';
+    canvas.style.height = size.h + 'px';
+    const ctx = canvas.getContext('2d');
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.scale(dpr, dpr);
+    redrawAll();
+  }, [size, strokes]);
+
+  const drawStroke = (ctx, s) => {
+    if (!s.points || s.points.length < 1) return;
+    ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    if (s.tool === 'eraser') {
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.strokeStyle = 'rgba(0,0,0,1)';
+      ctx.lineWidth = 18;
+    } else {
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.strokeStyle = s.color; ctx.lineWidth = 2.4;
+    }
+    ctx.beginPath();
+    if (s.points.length === 1) {
+      const p = s.points[0];
+      ctx.arc(p.x, p.y, ctx.lineWidth / 2, 0, Math.PI * 2);
+      ctx.fillStyle = ctx.strokeStyle;
+      ctx.fill(); return;
+    }
+    ctx.moveTo(s.points[0].x, s.points[0].y);
+    for (let i = 1; i < s.points.length; i++) ctx.lineTo(s.points[i].x, s.points[i].y);
+    ctx.stroke();
+  };
+
+  const redrawAll = () => {
+    const canvas = canvasRef.current; if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    ctx.save(); ctx.setTransform(1,0,0,1,0,0);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.restore();
+    for (const s of strokes) drawStroke(ctx, s);
+  };
+
+  const getPoint = (e) => {
+    const rect = canvasRef.current.getBoundingClientRect();
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+  };
+
+  const handlePointerDown = (e) => {
+    if (!active) return; e.preventDefault();
+    try { e.currentTarget.setPointerCapture(e.pointerId); } catch(_) {}
+    const pt = getPoint(e);
+    currentStroke.current = { tool, color, points: [pt] };
+    drawStroke(canvasRef.current.getContext('2d'), currentStroke.current);
+  };
+  const handlePointerMove = (e) => {
+    if (!active || !currentStroke.current) return; e.preventDefault();
+    const pt = getPoint(e);
+    const s = currentStroke.current;
+    s.points.push(pt);
+    const ctx = canvasRef.current.getContext('2d');
+    const len = s.points.length; if (len < 2) return;
+    ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    if (s.tool === 'eraser') {
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.strokeStyle = 'rgba(0,0,0,1)'; ctx.lineWidth = 18;
+    } else {
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.strokeStyle = s.color; ctx.lineWidth = 2.4;
+    }
+    ctx.beginPath();
+    ctx.moveTo(s.points[len-2].x, s.points[len-2].y);
+    ctx.lineTo(s.points[len-1].x, s.points[len-1].y);
+    ctx.stroke();
+  };
+  const handlePointerUp = () => {
+    if (!currentStroke.current) return;
+    const s = currentStroke.current;
+    if (s.points.length > 0) setStrokes(prev => [...prev, s]);
+    currentStroke.current = null;
+  };
+
+  useEffect(() => {
+    window.__drawingApi = {
+      undo: () => setStrokes(prev => prev.slice(0, -1)),
+      clear: () => setStrokes([])
+    };
+  }, []);
+
+  return (
+    <div ref={containerRef} className="absolute inset-0">
+      <canvas ref={canvasRef}
+        onPointerDown={handlePointerDown} onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerUp} onPointerCancel={handlePointerUp} onPointerLeave={handlePointerUp}
+        style={{ touchAction: 'none', pointerEvents: active ? 'auto' : 'none',
+          cursor: active ? (tool === 'eraser' ? 'cell' : 'crosshair') : 'default' }}
+        className="block" />
+    </div>
+  );
+}
+
+function DifficultyBadge({ d }) {
+  const map = {
+    easy: { label: '하', color: '#065f46', bg: '#d1fae5', dot: '#10b981' },
+    medium: { label: '중', color: '#1e3a8a', bg: '#dbeafe', dot: '#3b82f6' },
+    hard: { label: '상', color: '#7f1d1d', bg: '#fee2e2', dot: '#ef4444' }
+  };
+  const s = map[d];
+  return (
+    <span className="diff-pill" style={{ color: s.color, background: s.bg }}>
+      <span className="w-1.5 h-1.5 rounded-full" style={{ background: s.dot }} />
+      {s.label}
+    </span>
+  );
+}
+
+// Circular progress ring
+function ProgressRing({ pct, size = 120, stroke = 10, color = '#ffffff' }) {
+  const radius = (size - stroke) / 2;
+  const circ = 2 * Math.PI * radius;
+  const offset = circ - (pct / 100) * circ;
+  return (
+    <svg width={size} height={size} className="progress-ring">
+      <circle cx={size/2} cy={size/2} r={radius} 
+        fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth={stroke} />
+      <circle cx={size/2} cy={size/2} r={radius}
+        fill="none" stroke={color} strokeWidth={stroke}
+        strokeDasharray={circ} strokeDashoffset={offset}
+        strokeLinecap="round"
+        style={{ transition: 'stroke-dashoffset 0.7s ease-out' }} />
+    </svg>
+  );
+}
+
+function HomeScreen({ onStart, stats, wrongCount, starredCount, onReview, onStats, onStarred }) {
+  const difficulties = [
+    { 
+      key: 'easy', label: '하', korean: '기초', desc: '개념 다지기',
+      count: PROBLEMS.filter(p => p.difficulty === 'easy').length,
+      bg: '#dcfce7', accent: '#16a34a', shadow: '#86efac', emoji: '🌱'
+    },
+    { 
+      key: 'medium', label: '중', korean: '표준', desc: '자료 분석',
+      count: PROBLEMS.filter(p => p.difficulty === 'medium').length,
+      bg: '#dbeafe', accent: '#2563eb', shadow: '#93c5fd', emoji: '🎯'
+    },
+    { 
+      key: 'hard', label: '상', korean: '심화', desc: '종합 추론',
+      count: PROBLEMS.filter(p => p.difficulty === 'hard').length,
+      bg: '#fee2e2', accent: '#dc2626', shadow: '#fca5a5', emoji: '🔥'
+    }
+  ];
+  
+  const totalAttempted = (stats.easy?.total || 0) + (stats.medium?.total || 0) + (stats.hard?.total || 0);
+  const totalCorrect = (stats.easy?.correct || 0) + (stats.medium?.correct || 0) + (stats.hard?.correct || 0);
+  const accuracy = totalAttempted > 0 ? Math.round((totalCorrect / totalAttempted) * 100) : 0;
+  const totalSolved = new Set(); // unique problems solved (we don't track this exactly, use total)
+  const progressPct = Math.min(100, Math.round((totalAttempted / PROBLEMS.length) * 100));
+
+  return (
+    <div className="app-bg">
+      <div className="max-w-2xl mx-auto px-5 pt-8 pb-16 sm:pt-12">
+        
+        {/* TOP HEADER */}
+        <header className="mb-6 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-10 h-10 rounded-2xl bg-indigo-600 flex items-center justify-center text-white font-jua text-xl shadow-md">통</div>
+            <div>
+              <div className="font-jua text-[17px] text-zinc-900 leading-none">통합과학</div>
+              <div className="text-[11px] text-zinc-500 mt-0.5">규산염 광물</div>
+            </div>
+          </div>
+          <button onClick={onStats} className="w-10 h-10 rounded-2xl bg-white border-2 border-zinc-200 flex items-center justify-center text-zinc-700 hover:bg-zinc-50 transition-colors" style={{ boxShadow: '0 3px 0 #e5e7eb' }}>
+            <Icons.TrendUp size={18} />
+          </button>
+        </header>
+
+        {/* HERO PROGRESS CARD */}
+        <div className="hero-card p-7 sm:p-8 mb-5 slide-up">
+          <div className="relative z-10 flex items-center gap-6">
+            <div className="relative flex-shrink-0">
+              <ProgressRing pct={accuracy} size={110} stroke={9} color="#fbbf24" />
+              <div className="absolute inset-0 flex flex-col items-center justify-center">
+                <div className="font-num text-[32px] leading-none text-white">{accuracy}<span className="text-[18px] text-amber-300">%</span></div>
+                <div className="text-[10px] uppercase tracking-wider text-indigo-200 mt-1">정답률</div>
+              </div>
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="text-[12px] text-indigo-200 font-medium mb-1 tracking-wider uppercase">My Progress</div>
+              <h2 className="font-jua text-[22px] text-white leading-tight mb-3">
+                {totalAttempted === 0 ? '오늘도 화이팅!' : 
+                 accuracy >= 90 ? '완벽한 실력!' :
+                 accuracy >= 70 ? '잘 하고 있어요' :
+                 '꾸준히 풀어봐요'}
+              </h2>
+              <div className="flex items-baseline gap-4 text-white">
+                <div>
+                  <div className="font-num text-[22px] leading-none">{totalCorrect}</div>
+                  <div className="text-[11px] text-indigo-200 mt-0.5">맞힘</div>
+                </div>
+                <div className="w-px h-8 bg-white/20" />
+                <div>
+                  <div className="font-num text-[22px] leading-none">{totalAttempted}</div>
+                  <div className="text-[11px] text-indigo-200 mt-0.5">총 풀이</div>
+                </div>
+                <div className="w-px h-8 bg-white/20" />
+                <div>
+                  <div className="font-num text-[22px] leading-none text-amber-300">{wrongCount}</div>
+                  <div className="text-[11px] text-indigo-200 mt-0.5">오답</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* DIFFICULTY SELECTION - Big visual cards */}
+        <section className="mb-6">
+          <div className="flex items-baseline justify-between mb-4 px-1">
+            <h2 className="font-jua text-[20px] text-zinc-900">난이도 선택</h2>
+            <span className="text-[12px] text-zinc-500">총 {PROBLEMS.length}문항</span>
+          </div>
+          
+          <div className="space-y-3">
+            {difficulties.map((d, i) => {
+              const dStats = stats[d.key] || { total: 0, correct: 0 };
+              const pct = dStats.total > 0 ? Math.round((dStats.correct / dStats.total) * 100) : null;
+              const disabled = d.count === 0;
+              return (
+                <button key={d.key} 
+                  onClick={() => !disabled && onStart(d.key)} disabled={disabled}
+                  className={`chunky-card pressable w-full p-5 text-left flex items-center gap-4 ${disabled ? 'opacity-40 cursor-not-allowed' : ''}`}
+                  style={{ 
+                    boxShadow: disabled ? '0 4px 0 #e5e7eb' : `0 4px 0 ${d.shadow}`,
+                    borderColor: disabled ? '#e5e7eb' : d.shadow,
+                    animationDelay: `${i * 0.08}s`
+                  }}>
+                  <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl flex-shrink-0"
+                    style={{ background: d.bg }}>
+                    {d.emoji}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-baseline gap-2 mb-1">
+                      <span className="font-jua text-[20px] text-zinc-900">{d.korean}</span>
+                      <span className="text-[12px] font-bold px-2 py-0.5 rounded-md" 
+                        style={{ background: d.bg, color: d.accent }}>{d.label}</span>
+                    </div>
+                    <div className="text-[13px] text-zinc-500 mb-2">{d.desc}</div>
+                    <div className="flex items-center gap-3 text-[12px]">
+                      <span className="text-zinc-600">
+                        <span className="font-num text-[15px]" style={{ color: d.accent }}>{d.count}</span>
+                        <span className="ml-1">문항</span>
+                      </span>
+                      {pct !== null && (
+                        <>
+                          <span className="text-zinc-300">·</span>
+                          <span className="text-zinc-600">
+                            정답률 <span className="font-num text-[15px]" style={{ color: d.accent }}>{pct}%</span>
+                          </span>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center"
+                    style={{ background: d.bg, color: d.accent }}>
+                    <Icons.ChevronR size={20} stroke={2.5} />
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* QUICK ACTIONS - 2 column */}
+        <section>
+          <h2 className="font-jua text-[20px] text-zinc-900 mb-3 px-1">복습</h2>
+          <div className="grid grid-cols-2 gap-3">
+            <button onClick={onReview} disabled={wrongCount === 0}
+              className={`chunky-card pressable p-5 text-left ${wrongCount === 0 ? 'opacity-40 cursor-not-allowed' : ''}`}
+              style={{ boxShadow: wrongCount === 0 ? '0 4px 0 #e5e7eb' : '0 4px 0 #fca5a5', borderColor: wrongCount === 0 ? '#e5e7eb' : '#fca5a5' }}>
+              <div className="w-12 h-12 rounded-2xl bg-red-100 flex items-center justify-center text-2xl mb-3">📝</div>
+              <div className="font-jua text-[15px] text-zinc-900 mb-1">오답노트</div>
+              <div className="text-[12px] text-zinc-500">
+                {wrongCount > 0 ? <><span className="font-num text-red-600">{wrongCount}</span>문제 대기</> : '오답 없음'}
+              </div>
+            </button>
+            
+            <button onClick={onStarred} disabled={starredCount === 0}
+              className={`chunky-card pressable p-5 text-left ${starredCount === 0 ? 'opacity-40 cursor-not-allowed' : ''}`}
+              style={{ boxShadow: starredCount === 0 ? '0 4px 0 #e5e7eb' : '0 4px 0 #fcd34d', borderColor: starredCount === 0 ? '#e5e7eb' : '#fcd34d' }}>
+              <div className="w-12 h-12 rounded-2xl bg-amber-100 flex items-center justify-center text-2xl mb-3">⭐</div>
+              <div className="font-jua text-[15px] text-zinc-900 mb-1">즐겨찾기</div>
+              <div className="text-[12px] text-zinc-500">
+                {starredCount > 0 ? <><span className="font-num text-amber-600">{starredCount}</span>문제 저장됨</> : '저장된 문제 없음'}
+              </div>
+            </button>
+          </div>
+        </section>
+
+        <footer className="mt-10 text-center">
+          <div className="text-[11px] text-zinc-400">시도교육청 학력평가 기출 · Made with care</div>
+        </footer>
+      </div>
+    </div>
+  );
+}
+
+function QuizScreen({ problems, onExit, onComplete, title, onAnswerLogged, onStarToggle, starredIds }) {
+  const [idx, setIdx] = useState(0);
+  const [selected, setSelected] = useState(null);
+  const [submitted, setSubmitted] = useState(false);
+  const [showCanvas, setShowCanvas] = useState(false);
+  const [tool, setTool] = useState('pen');
+  const [color, setColor] = useState('#1e40af');
+  const [sessionStats, setSessionStats] = useState({ correct: 0, wrong: 0 });
+
+  const p = problems[idx];
+  const isLast = idx === problems.length - 1;
+  const isCorrect = selected === p.answer;
+  const isStarred = starredIds.includes(p.id);
+
+  const submit = () => {
+    if (selected === null || submitted) return;
+    setSubmitted(true);
+    const correct = selected === p.answer;
+    setSessionStats(s => ({ correct: s.correct + (correct ? 1 : 0), wrong: s.wrong + (correct ? 0 : 1) }));
+    onAnswerLogged(p, correct);
+  };
+  const next = () => {
+    if (isLast) { onComplete(sessionStats); return; }
+    setIdx(i => i + 1); setSelected(null); setSubmitted(false);
+    if (window.__drawingApi) window.__drawingApi.clear();
+  };
+
+  return (
+    <div className="app-bg">
+      <div className="max-w-3xl mx-auto">
+        <header className="sticky top-0 z-20 bg-zinc-50/95 backdrop-blur-md border-b-2 border-zinc-200 px-4 py-3 flex items-center gap-3">
+          <button onClick={onExit} className="w-10 h-10 -ml-2 rounded-xl hover:bg-zinc-100 transition-colors flex items-center justify-center"><Icons.ArrowLeft size={20} /></button>
+          <div className="flex-1 min-w-0">
+            <div className="text-[11px] text-zinc-500 font-bold tracking-wider uppercase truncate">{title}</div>
+            <div className="text-[16px] font-jua text-zinc-900">{idx + 1} <span className="text-zinc-400">/ {problems.length}</span></div>
+          </div>
+          <button onClick={() => onStarToggle(p.id)}
+            className={`w-10 h-10 rounded-xl transition-colors flex items-center justify-center ${isStarred ? 'text-amber-500 bg-amber-50' : 'text-zinc-400 hover:text-zinc-600 hover:bg-zinc-100'}`}>
+            <Icons.Star size={20} fill={isStarred ? 'currentColor' : 'none'} />
+          </button>
+        </header>
+
+        <div className="h-1 bg-zinc-100">
+          <div className="h-full bg-gradient-to-r from-indigo-500 to-violet-500 transition-all duration-500 ease-out rounded-r-full" 
+            style={{ width: `${((idx + 1) / problems.length) * 100}%` }} />
+        </div>
+
+        <main className="px-4 sm:px-6 py-6 pb-36">
+          <div className="chunky-card relative overflow-hidden">
+            <div className={`absolute inset-0 z-10 ${showCanvas ? '' : 'pointer-events-none'}`}>
+              <DrawingCanvas active={showCanvas} tool={tool} color={color} />
+            </div>
+            <div className="p-5 sm:p-7 relative">
+              <div className="flex items-center gap-2.5 mb-5 text-xs flex-wrap">
+                <DifficultyBadge d={p.difficulty} />
+                <span className="text-zinc-700 font-bold text-[13px]">{p.topic}</span>
+                <span className="ml-auto text-zinc-400 text-[11px] font-medium">{p.source}</span>
+              </div>
+              <div className="rounded-xl overflow-hidden bg-zinc-50 border-2 border-zinc-100 mb-6">
+                <img src={p.image} alt={`문제 ${idx + 1}`} className="problem-img" />
+              </div>
+              <div className="space-y-3">
+                {p.choices.map((choice, i) => {
+                  const num = i + 1;
+                  const isSelected = selected === num;
+                  const isCorrectChoice = submitted && num === p.answer;
+                  const isWrongSelected = submitted && isSelected && num !== p.answer;
+                  let cls = "choice-btn";
+                  if (isCorrectChoice) cls += " correct";
+                  else if (isWrongSelected) cls += " wrong";
+                  else if (isSelected) cls += " selected";
+                  return (
+                    <button key={i} onClick={() => !submitted && setSelected(num)} disabled={submitted} className={cls}>
+                      <span className="choice-num font-num">{num}</span>
+                      <span className="text-[15px] leading-[1.5] flex-1 font-medium">{choice}</span>
+                      {isCorrectChoice && <Icons.Check size={20} stroke={3} />}
+                      {isWrongSelected && <Icons.X size={20} stroke={3} />}
+                    </button>
+                  );
+                })}
+              </div>
+              {submitted && (
+                <div className="mt-7 fade-in">
+                  <div className={`rounded-2xl p-5 border-2 ${isCorrect ? 'bg-emerald-50 border-emerald-200' : 'bg-red-50 border-red-200'}`}
+                    style={{ boxShadow: isCorrect ? '0 4px 0 #6ee7b7' : '0 4px 0 #fca5a5' }}>
+                    <div className="flex items-center gap-3 mb-4">
+                      {isCorrect ? (
+                        <>
+                          <div className="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center text-white"><Icons.Check size={22} stroke={3.5} /></div>
+                          <span className="font-jua text-emerald-900 text-[18px]">정답입니다!</span>
+                        </>
+                      ) : (
+                        <>
+                          <div className="w-10 h-10 rounded-full bg-red-500 flex items-center justify-center text-white"><Icons.X size={22} stroke={3.5} /></div>
+                          <div>
+                            <div className="font-jua text-red-900 text-[18px] leading-tight">오답입니다</div>
+                            <div className="text-[12px] text-red-700 mt-0.5 font-medium">정답: <span className="font-num font-bold">{p.answer}</span>번</div>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                    <div className="text-[11px] font-bold text-zinc-500 tracking-widest mb-2 uppercase">해설</div>
+                    <div className="text-[14.5px] text-zinc-800 leading-[1.75]" dangerouslySetInnerHTML={{ __html: p.explanation }} />
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </main>
+
+        <div className="fixed bottom-0 left-0 right-0 bg-white/97 backdrop-blur-md border-t-2 border-zinc-200 z-30">
+          <div className="max-w-3xl mx-auto px-4 py-3 flex items-center gap-2 flex-wrap">
+            <div className="flex items-center gap-1 bg-zinc-100 rounded-2xl p-1">
+              <button onClick={() => setShowCanvas(!showCanvas)}
+                className={`w-10 h-10 rounded-xl transition-colors flex items-center justify-center ${showCanvas ? 'bg-zinc-900 text-white' : 'text-zinc-600 hover:bg-zinc-200'}`}>
+                <Icons.Pencil size={18} />
+              </button>
+              {showCanvas && (
+                <>
+                  <div className="flex gap-1 px-1.5">
+                    {['#1e40af', '#dc2626', '#059669'].map(c => (
+                      <button key={c} onClick={() => { setColor(c); setTool('pen'); }}
+                        className={`w-7 h-7 rounded-full transition-all ${tool === 'pen' && color === c ? 'ring-2 ring-zinc-900 ring-offset-2 ring-offset-zinc-100' : ''}`}
+                        style={{ background: c }} />
+                    ))}
+                  </div>
+                  <button onClick={() => setTool('eraser')}
+                    className={`w-10 h-10 rounded-xl transition-colors flex items-center justify-center ${tool === 'eraser' ? 'bg-zinc-900 text-white' : 'text-zinc-600 hover:bg-zinc-200'}`}>
+                    <Icons.Eraser size={18} />
+                  </button>
+                  <button onClick={() => window.__drawingApi?.undo()}
+                    className="w-10 h-10 rounded-xl text-zinc-600 hover:bg-zinc-200 transition-colors flex items-center justify-center"><Icons.Undo size={18} /></button>
+                  <button onClick={() => window.__drawingApi?.clear()}
+                    className="w-10 h-10 rounded-xl text-zinc-600 hover:bg-zinc-200 transition-colors flex items-center justify-center"><Icons.Trash size={18} /></button>
+                </>
+              )}
+            </div>
+            <div className="flex-1" />
+            {!submitted ? (
+              <button onClick={submit} disabled={selected === null} className="btn-primary">답 확인</button>
+            ) : (
+              <button onClick={next} className="btn-primary flex items-center gap-2">
+                {isLast ? '완료' : '다음 문제'}<Icons.ChevronR size={18} stroke={2.5} />
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CompletionScreen({ stats, onHome, onRestart }) {
+  const total = stats.correct + stats.wrong;
+  const pct = total > 0 ? Math.round((stats.correct / total) * 100) : 0;
+  const tier = pct === 100 ? { msg: '완벽해요!', emoji: '🎉', color: '#16a34a' } 
+            : pct >= 80 ? { msg: '훌륭해요!', emoji: '🌟', color: '#f59e0b' }
+            : pct >= 60 ? { msg: '잘 했어요', emoji: '👍', color: '#3b82f6' }
+            : { msg: '다시 도전!', emoji: '💪', color: '#ef4444' };
+
+  return (
+    <div className="app-bg min-h-screen flex items-center justify-center p-5">
+      <div className="max-w-md w-full chunky-card p-8 text-center fade-in">
+        <div className="text-6xl mb-3">{tier.emoji}</div>
+        <h2 className="font-jua text-[28px] text-zinc-900 mb-1">{tier.msg}</h2>
+        <p className="text-zinc-500 text-[14px] mb-7">학습을 완료했어요</p>
+        
+        <div className="bg-zinc-50 rounded-2xl p-6 mb-6 border-2 border-zinc-100">
+          <div className="font-num text-[64px] leading-none mb-2 tracking-tight" style={{ color: tier.color }}>
+            {pct}<span className="text-[28px] text-zinc-400">%</span>
+          </div>
+          <div className="text-[12px] text-zinc-500 mb-4 font-medium">정답률</div>
+          <div className="flex items-center justify-center gap-6 text-[13px] pt-4 border-t border-zinc-200">
+            <div className="flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+              <span className="text-zinc-600">정답</span>
+              <span className="font-num text-emerald-700 text-[16px]">{stats.correct}</span>
+            </div>
+            <div className="w-px h-5 bg-zinc-300" />
+            <div className="flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-red-500"></span>
+              <span className="text-zinc-600">오답</span>
+              <span className="font-num text-red-700 text-[16px]">{stats.wrong}</span>
+            </div>
+          </div>
+        </div>
+        
+        <div className="flex gap-3">
+          <button onClick={onRestart} className="btn-secondary flex-1">다시 풀기</button>
+          <button onClick={onHome} className="btn-primary flex-1">홈으로</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function StatsScreen({ stats, history, onBack, onResetDifficulty, onResetAll }) {
+  const byDiff = ['easy', 'medium', 'hard'];
+  const diffMeta = {
+    easy: { label: '하 · 기초', color: '#16a34a', bg: '#dcfce7', emoji: '🌱' },
+    medium: { label: '중 · 표준', color: '#2563eb', bg: '#dbeafe', emoji: '🎯' },
+    hard: { label: '상 · 심화', color: '#dc2626', bg: '#fee2e2', emoji: '🔥' }
+  };
+
+  // Track which reset buttons are in "confirm" state
+  const [confirming, setConfirming] = useState(null); // 'easy' | 'medium' | 'hard' | 'all' | null
+
+  const handleResetClick = (target) => {
+    if (confirming === target) {
+      if (target === 'all') onResetAll();
+      else onResetDifficulty(target);
+      setConfirming(null);
+    } else {
+      setConfirming(target);
+      // Auto-cancel after 4 seconds if user doesn't confirm
+      setTimeout(() => setConfirming(c => c === target ? null : c), 4000);
+    }
+  };
+
+  const total = byDiff.reduce((a, d) => a + (stats[d]?.total || 0), 0);
+  const correct = byDiff.reduce((a, d) => a + (stats[d]?.correct || 0), 0);
+  const pct = total > 0 ? Math.round((correct / total) * 100) : 0;
+
+  const topicMistakes = {};
+  history.forEach(h => {
+    if (!h.correct) {
+      const p = PROBLEMS.find(x => x.id === h.id);
+      if (p) topicMistakes[p.topic] = (topicMistakes[p.topic] || 0) + 1;
+    }
+  });
+  const topTopics = Object.entries(topicMistakes).sort((a,b) => b[1]-a[1]).slice(0, 5);
+
+  return (
+    <div className="app-bg min-h-screen">
+      <div className="max-w-2xl mx-auto px-5 py-6 pb-12">
+        <header className="mb-6 flex items-center gap-3">
+          <button onClick={onBack} className="w-10 h-10 -ml-2 rounded-xl hover:bg-zinc-100 transition-colors flex items-center justify-center"><Icons.ArrowLeft size={20} /></button>
+          <h1 className="font-jua text-[24px] text-zinc-900">학습 통계</h1>
+        </header>
+
+        <div className="chunky-card p-6 mb-4">
+          <div className="text-[11px] font-bold text-zinc-500 tracking-widest uppercase mb-3">전체 진도</div>
+          <div className="flex items-baseline gap-2 mb-4">
+            <span className="font-num text-[56px] leading-none text-zinc-900 tracking-tight">{pct}</span>
+            <span className="text-[24px] text-zinc-400 font-num">%</span>
+            <span className="text-[13px] text-zinc-500 ml-auto font-num">
+              <span className="font-bold text-zinc-700">{correct}</span> / {total}
+            </span>
+          </div>
+          <div className="h-3 bg-zinc-100 rounded-full overflow-hidden">
+            <div className="h-full bg-gradient-to-r from-indigo-500 to-violet-500 transition-all duration-700 ease-out rounded-full" style={{ width: `${pct}%` }} />
+          </div>
+        </div>
+
+        <div className="chunky-card p-6 mb-4">
+          <div className="flex items-center justify-between mb-5">
+            <div className="text-[11px] font-bold text-zinc-500 tracking-widest uppercase">난이도별 성과</div>
+            <div className="text-[10px] text-zinc-400">탭해서 초기화</div>
+          </div>
+          <div className="space-y-5">
+            {byDiff.map(d => {
+              const s = stats[d] || { total: 0, correct: 0 };
+              const dPct = s.total > 0 ? Math.round((s.correct / s.total) * 100) : 0;
+              const diffTotal = PROBLEMS.filter(p => p.difficulty === d).length;
+              const meta = diffMeta[d];
+              const isConfirming = confirming === d;
+              const hasData = s.total > 0;
+              return (
+                <div key={d}>
+                  <div className="flex items-center justify-between mb-2 gap-2">
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <div className="w-9 h-9 rounded-xl flex items-center justify-center text-lg flex-shrink-0" style={{ background: meta.bg }}>{meta.emoji}</div>
+                      <span className="font-jua text-[15px] text-zinc-800">{meta.label}</span>
+                    </div>
+                    <div className="flex items-center gap-2 flex-shrink-0">
+                      <span className="text-[12px] text-zinc-500 font-num whitespace-nowrap">
+                        <span className="font-bold text-zinc-700">{s.correct}</span> / {s.total}
+                      </span>
+                      {hasData && (
+                        isConfirming ? (
+                          <button onClick={() => handleResetClick(d)}
+                            className="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-red-500 text-white hover:bg-red-600 transition-colors">
+                            정말 초기화?
+                          </button>
+                        ) : (
+                          <button onClick={() => handleResetClick(d)}
+                            className="w-7 h-7 rounded-lg hover:bg-zinc-100 transition-colors flex items-center justify-center text-zinc-400 hover:text-red-500"
+                            title={`${meta.label} 기록 초기화`}>
+                            <Icons.Rotate size={14} />
+                          </button>
+                        )
+                      )}
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="flex-1 relative h-2.5 bg-zinc-100 rounded-full overflow-hidden">
+                      <div className="h-full transition-all duration-700 ease-out rounded-full" style={{ width: `${dPct}%`, background: meta.color }} />
+                    </div>
+                    <span className="font-num text-[14px] min-w-[40px] text-right" style={{ color: meta.color }}>{dPct}%</span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {topTopics.length > 0 && (
+          <div className="chunky-card p-6 mb-4">
+            <div className="flex items-baseline justify-between mb-4">
+              <div className="text-[11px] font-bold text-zinc-500 tracking-widest uppercase">취약 개념</div>
+              <div className="text-[11px] text-zinc-400">자주 틀린 주제 Top {topTopics.length}</div>
+            </div>
+            <div className="space-y-2">
+              {topTopics.map(([topic, count], i) => (
+                <div key={topic} className="flex items-center gap-3 p-3 rounded-xl bg-zinc-50">
+                  <span className="w-8 h-8 rounded-full bg-red-100 text-red-700 font-num text-[14px] flex items-center justify-center flex-shrink-0">{i+1}</span>
+                  <span className="flex-1 text-[14px] text-zinc-800 font-medium">{topic}</span>
+                  <span className="text-[12px] text-zinc-500"><span className="font-num font-bold text-red-600">{count}</span>회 오답</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {total === 0 && (
+          <div className="chunky-card p-10 text-center text-zinc-400">
+            <div className="text-4xl mb-3">📚</div>
+            <div className="text-[14px] font-medium">아직 푼 문제가 없어요</div>
+            <div className="text-[12px] mt-1">홈에서 난이도를 선택해 시작해보세요</div>
+          </div>
+        )}
+
+        {/* 전체 기록 초기화 — 화면 맨 아래, 위험도 있는 만큼 눈에 덜 띄게 */}
+        {total > 0 && (
+          <div className="mt-8 pt-6 border-t border-zinc-200">
+            <div className="text-center">
+              <div className="text-[11px] text-zinc-400 mb-3">
+                모든 난이도의 기록을 한 번에 지울 수 있어요
+                <br/>
+                <span className="text-zinc-300">(즐겨찾기는 유지됩니다)</span>
+              </div>
+              {confirming === 'all' ? (
+                <div className="flex items-center justify-center gap-2">
+                  <button onClick={() => setConfirming(null)}
+                    className="px-4 py-2 rounded-xl text-[13px] font-bold text-zinc-600 hover:bg-zinc-100 transition-colors">
+                    취소
+                  </button>
+                  <button onClick={() => handleResetClick('all')}
+                    className="px-5 py-2 rounded-xl text-[13px] font-bold bg-red-500 text-white hover:bg-red-600 transition-colors"
+                    style={{ boxShadow: '0 3px 0 #b91c1c' }}>
+                    정말 모두 초기화
+                  </button>
+                </div>
+              ) : (
+                <button onClick={() => handleResetClick('all')}
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-[12px] font-bold text-zinc-500 hover:text-red-500 hover:bg-red-50 transition-colors">
+                  <Icons.Trash size={14} />
+                  전체 기록 초기화
+                </button>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function App() {
+  const [view, setView] = useState('loading');
+  const [currentProblems, setCurrentProblems] = useState([]);
+  const [quizTitle, setQuizTitle] = useState('');
+  const [lastSessionStats, setLastSessionStats] = useState({ correct: 0, wrong: 0 });
+  const [stats, setStats] = useState({ easy: { total: 0, correct: 0 }, medium: { total: 0, correct: 0 }, hard: { total: 0, correct: 0 } });
+  const [wrongIds, setWrongIds] = useState([]);
+  const [starredIds, setStarredIds] = useState([]);
+  const [history, setHistory] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const s = await storage.get(STORAGE_KEYS.STATS, { easy: { total: 0, correct: 0 }, medium: { total: 0, correct: 0 }, hard: { total: 0, correct: 0 } });
+      const w = await storage.get(STORAGE_KEYS.WRONG, []);
+      const st = await storage.get(STORAGE_KEYS.STARRED, []);
+      const h = await storage.get(STORAGE_KEYS.HISTORY, []);
+      setStats(s); setWrongIds(w); setStarredIds(st); setHistory(h);
+      setView('home');
+    })();
+  }, []);
+
+  const startQuiz = (difficulty) => {
+    const shuffled = [...PROBLEMS.filter(p => p.difficulty === difficulty)].sort(() => Math.random() - 0.5);
+    if (shuffled.length === 0) return;
+    setCurrentProblems(shuffled);
+    const labels = { easy: '하 · 기초', medium: '중 · 표준', hard: '상 · 심화' };
+    setQuizTitle(labels[difficulty]); setView('quiz');
+  };
+  const startReview = () => {
+    const probs = PROBLEMS.filter(p => wrongIds.includes(p.id));
+    if (probs.length === 0) return;
+    setCurrentProblems(probs); setQuizTitle('오답 다시 풀기'); setView('quiz');
+  };
+  const startStarred = () => {
+    const probs = PROBLEMS.filter(p => starredIds.includes(p.id));
+    if (probs.length === 0) return;
+    setCurrentProblems(probs); setQuizTitle('즐겨찾기'); setView('quiz');
+  };
+  const logAnswer = async (problem, correct) => {
+    const d = problem.difficulty;
+    const newStats = { ...stats, [d]: { total: (stats[d]?.total || 0) + 1, correct: (stats[d]?.correct || 0) + (correct ? 1 : 0) } };
+    setStats(newStats);
+    await storage.set(STORAGE_KEYS.STATS, newStats);
+    let newWrong = [...wrongIds];
+    if (!correct) { if (!newWrong.includes(problem.id)) newWrong.push(problem.id); }
+    else { newWrong = newWrong.filter(id => id !== problem.id); }
+    setWrongIds(newWrong);
+    await storage.set(STORAGE_KEYS.WRONG, newWrong);
+    const newHistory = [...history, { id: problem.id, correct, timestamp: Date.now(), difficulty: d }].slice(-500);
+    setHistory(newHistory);
+    await storage.set(STORAGE_KEYS.HISTORY, newHistory);
+  };
+  const toggleStar = async (id) => {
+    const newStarred = starredIds.includes(id) ? starredIds.filter(x => x !== id) : [...starredIds, id];
+    setStarredIds(newStarred);
+    await storage.set(STORAGE_KEYS.STARRED, newStarred);
+  };
+  const completeQuiz = (sessionStats) => { setLastSessionStats(sessionStats); setView('completion'); };
+
+  // Reset only one difficulty's stats + its wrong/history entries
+  const resetDifficulty = async (difficulty) => {
+    const newStats = { ...stats, [difficulty]: { total: 0, correct: 0 } };
+    setStats(newStats);
+    await storage.set(STORAGE_KEYS.STATS, newStats);
+
+    // Remove wrong IDs that belong to this difficulty
+    const idsInDiff = new Set(PROBLEMS.filter(p => p.difficulty === difficulty).map(p => p.id));
+    const newWrong = wrongIds.filter(id => !idsInDiff.has(id));
+    setWrongIds(newWrong);
+    await storage.set(STORAGE_KEYS.WRONG, newWrong);
+
+    // Remove history entries of this difficulty
+    const newHistory = history.filter(h => h.difficulty !== difficulty);
+    setHistory(newHistory);
+    await storage.set(STORAGE_KEYS.HISTORY, newHistory);
+  };
+
+  // Full reset — clears stats, wrong list, history (keeps starred)
+  const resetAll = async () => {
+    const empty = { easy: { total: 0, correct: 0 }, medium: { total: 0, correct: 0 }, hard: { total: 0, correct: 0 } };
+    setStats(empty);
+    setWrongIds([]);
+    setHistory([]);
+    await storage.set(STORAGE_KEYS.STATS, empty);
+    await storage.set(STORAGE_KEYS.WRONG, []);
+    await storage.set(STORAGE_KEYS.HISTORY, []);
+  };
+
+  if (view === 'loading') return <div className="app-bg flex items-center justify-center min-h-screen"><div className="text-stone-400 text-sm font-medium">로딩 중...</div></div>;
+  if (view === 'home') return <HomeScreen onStart={startQuiz} stats={stats} wrongCount={wrongIds.length} starredCount={starredIds.length} onReview={startReview} onStarred={startStarred} onStats={() => setView('stats')} />;
+  if (view === 'quiz') return <QuizScreen problems={currentProblems} title={quizTitle} onExit={() => setView('home')} onComplete={completeQuiz} onAnswerLogged={logAnswer} onStarToggle={toggleStar} starredIds={starredIds} />;
+  if (view === 'completion') return <CompletionScreen stats={lastSessionStats} onHome={() => setView('home')} onRestart={() => { setCurrentProblems(prev => [...prev].sort(() => Math.random() - 0.5)); setView('quiz'); }} />;
+  if (view === 'stats') return <StatsScreen stats={stats} history={history} onBack={() => setView('home')} onResetDifficulty={resetDifficulty} onResetAll={resetAll} />;
+  return null;
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
